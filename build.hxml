@@ -1,0 +1,3 @@
+-cp src
+-main Calculator
+-x out/calculator
