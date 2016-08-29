@@ -18,7 +18,7 @@ class Lexer
                 case char if (Rules.isOperatorSymbol(char)):
                     tokens.push(readOperator(cursor));
                 case char:
-                    tokens.push(AST.Token.Illegal("Unknown"));
+                    tokens.push(AST.Token.Illegal(cursor.next()));
             }
         }
 
