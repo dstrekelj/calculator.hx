@@ -1,6 +1,6 @@
 enum Token
 {
-    Number(n : String);
-    Operation;
-    Illegal;
+    Constant(c : String);
+    Operator(o : String);
+    Illegal(i : String);
 }

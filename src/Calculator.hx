@@ -2,6 +2,6 @@ class Calculator
 {
     static function main() : Void
     {
-        Lexer.run("123 + 4 - 56");
+        trace(lexer.Lexer.run("123.5 +  12 -    6    * 2/4"));
     }
 }
