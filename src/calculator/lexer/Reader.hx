@@ -3,13 +3,30 @@ package calculator.lexer;
 import calculator.lexer.Rules.*;
 import calculator.AST;
 
+/**
+ * The source string is read (traversed) with the functions defined in
+ * this class.
+ */
 @:publicFields
 class Reader {
+    /**
+     * Reads all whitespace characters beginning with the current
+     * cursor position.
+     *
+     * @param cursor - Cursor observing source
+     */
     static function readWhitespace(cursor : Cursor) : Void {
         while (isWhitespace(cursor.peek())) cursor.next();
     }
 
-    static function readNumber(cursor : Cursor) : AST.Token {
+    /**
+     * Reads all operand characters beginning with the current cursor
+     * position.
+     *
+     * @param cursor - Cursor observing source
+     * @return Operand token containing read value
+     */
+    static function readOperand(cursor : Cursor) : AST.Token {
         var accumulator = new StringBuf();
         var foundDecimal = false;
 
@@ -28,20 +45,27 @@ class Reader {
             }
         }
         
-        return AST.Token.Constant(accumulator.toString());
+        return AST.Token.Operand(accumulator.toString());
     }
 
-    static function readOperator(cursor : Cursor) : AST.Token {
+    /**
+     * Reads all operation characters beginning with the current
+     * cursor position.
+     *
+     * @param cursor - Cursor observing source
+     * @return Operation token containing read value
+     */
+    static function readOperation(cursor : Cursor) : AST.Token {
         var accumulator = new StringBuf();
 
-        while (isOperatorSymbol(cursor.peek())) {
+        while (isOperationSymbol(cursor.peek())) {
             switch (cursor.next()) {
-                case char if (isOperatorSymbol(char)):
+                case char if (isOperationSymbol(char)):
                     accumulator.add(char);
                 case _:
             }
         }
         
-        return AST.Token.Operator(accumulator.toString());
+        return AST.Token.Operation(accumulator.toString());
     }
 }
