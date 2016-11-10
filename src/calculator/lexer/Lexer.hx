@@ -1,19 +1,15 @@
-package lexer;
+package calculator.lexer;
 
-import lexer.Reader.*;
-import lexer.Rules.*;
+import calculator.lexer.Reader.*;
+import calculator.lexer.Rules.*;
 
-class Lexer
-{
-    public static function run(source : String) : Array<AST.Token>
-    {
+class Lexer {
+    public static function run(source : String) : Array<AST.Token> {
         var cursor = new Cursor(source);
         var tokens = new Array<AST.Token>();
 
-        while (!isEof(cursor.peek()))
-        {
-            switch (cursor.peek())
-            {
+        while (!isEof(cursor.peek())) {
+            switch (cursor.peek()) {
                 case char if (isDigit(char)):
                     tokens.push(readNumber(cursor));
                 case char if (isWhitespace(char)):
