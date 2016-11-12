@@ -6,7 +6,6 @@ package calculator;
  * the input giving it a certain meaning.
  */
 enum Token {
-    Operand(c : String);
+    Operand(o : String);
     Operation(o : String);
-    Illegal(i : String);
 }

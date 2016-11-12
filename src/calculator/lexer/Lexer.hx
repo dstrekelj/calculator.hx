@@ -2,11 +2,14 @@ package calculator.lexer;
 
 import calculator.lexer.Reader.*;
 import calculator.lexer.Rules.*;
+import calculator.AST.Token;
+import calculator.Exception.LexerException;
 
 /**
  * The lexer performs a lexical analysis of the source string and
  * creates tokens in the process.
  */
+ @:publicFields
 class Lexer {
     /**
      * Runs lexical analysis on provided source string.
@@ -14,9 +17,9 @@ class Lexer {
      * @param source - Source string
      * @return Array of tokens
      */
-    public static function run(source : String) : Array<AST.Token> {
+    static function run(source : String) : Array<Token> {
         var cursor = new Cursor(source);
-        var tokens = new Array<AST.Token>();
+        var tokens = new Array<Token>();
 
         while (!isEof(cursor.peek())) {
             switch (cursor.peek()) {
@@ -27,7 +30,7 @@ class Lexer {
                 case char if (isOperationSymbol(char)):
                     tokens.push(readOperation(cursor));
                 case char:
-                    tokens.push(AST.Token.Illegal(cursor.next()));
+                    throw LexerException.IllegalChar(char, cursor.position);
             }
         }
 

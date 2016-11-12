@@ -1,7 +1,8 @@
 package calculator.lexer;
 
 import calculator.lexer.Rules.*;
-import calculator.AST;
+import calculator.AST.Token;
+import calculator.Exception.LexerException;
 
 /**
  * The source string is read (traversed) with the functions defined in
@@ -26,7 +27,7 @@ class Reader {
      * @param cursor - Cursor observing source
      * @return Operand token containing read value
      */
-    static function readOperand(cursor : Cursor) : AST.Token {
+    static function readOperand(cursor : Cursor) : Token {
         var accumulator = new StringBuf();
         var foundDecimal = false;
 
@@ -39,13 +40,13 @@ class Reader {
                         accumulator.add(char);
                         foundDecimal = true;
                     } else {
-                        return AST.Token.Illegal(accumulator.toString());
+                        throw LexerException.IllegalChar(char, cursor.position);
                     }
                 case _:
             }
         }
         
-        return AST.Token.Operand(accumulator.toString());
+        return Token.Operand(accumulator.toString());
     }
 
     /**
@@ -55,7 +56,7 @@ class Reader {
      * @param cursor - Cursor observing source
      * @return Operation token containing read value
      */
-    static function readOperation(cursor : Cursor) : AST.Token {
+    static function readOperation(cursor : Cursor) : Token {
         var accumulator = new StringBuf();
 
         while (isOperationSymbol(cursor.peek())) {
@@ -66,6 +67,6 @@ class Reader {
             }
         }
         
-        return AST.Token.Operation(accumulator.toString());
+        return Token.Operation(accumulator.toString());
     }
 }
