@@ -1,9 +1,8 @@
 package calculator;
 
-import calculator.lexer.Lexer;
-import calculator.parser.Parser;
-import calculator.Exception.LexerException;
-import calculator.Log;
+import calculator.lang.lexer.Lexer;
+import calculator.lang.util.Log;
+import calculator.lang.Exception.LexerException;
 
 /**
  * Application entry point.
@@ -20,7 +19,7 @@ import calculator.Log;
 class Calculator {
     static function main() : Void {
         try {
-            var lexer = Lexer.run("123.5 +d 12 - 6 * 2 / 4");
+            var lexer = Lexer.run("1 + 2.5 - 345 * 8");
             trace(lexer);
         } catch (e : LexerException) {
             Log.lexerException(e);

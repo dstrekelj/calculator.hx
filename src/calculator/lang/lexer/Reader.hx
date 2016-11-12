@@ -1,8 +1,9 @@
-package calculator.lexer;
+package calculator.lang.lexer;
 
-import calculator.lexer.Rules.*;
-import calculator.AST.Token;
-import calculator.Exception.LexerException;
+import calculator.lang.lexer.Rules.*;
+import calculator.lang.util.Cursor;
+import calculator.lang.AST.Token;
+import calculator.lang.Exception.LexerException;
 
 /**
  * The source string is read (traversed) with the functions defined in
@@ -16,8 +17,9 @@ class Reader {
      *
      * @param cursor - Cursor observing source
      */
-    static function readWhitespace(cursor : Cursor) : Void {
-        while (isWhitespace(cursor.peek())) cursor.next();
+    static function readWhitespace(cursor : Cursor<String>) : Void {
+        while (cursor.hasNext() && isWhitespace(cursor.peek()))
+            cursor.next();
     }
 
     /**
@@ -27,11 +29,11 @@ class Reader {
      * @param cursor - Cursor observing source
      * @return Operand token containing read value
      */
-    static function readOperand(cursor : Cursor) : Token {
+    static function readOperand(cursor : Cursor<String>) : Token {
         var accumulator = new StringBuf();
         var foundDecimal = false;
 
-        while (isDigit(cursor.peek()) || isDecimalPoint(cursor.peek())) {   
+        while (cursor.hasNext() && (isDigit(cursor.peek()) || isDecimalPoint(cursor.peek()))) {   
             switch (cursor.next()) {
                 case char if (isDigit(char)):
                     accumulator.add(char);
@@ -56,15 +58,11 @@ class Reader {
      * @param cursor - Cursor observing source
      * @return Operation token containing read value
      */
-    static function readOperation(cursor : Cursor) : Token {
+    static function readOperation(cursor : Cursor<String>) : Token {
         var accumulator = new StringBuf();
 
-        while (isOperationSymbol(cursor.peek())) {
-            switch (cursor.next()) {
-                case char if (isOperationSymbol(char)):
-                    accumulator.add(char);
-                case _:
-            }
+        while (cursor.hasNext() && isOperationSymbol(cursor.peek())) {
+            accumulator.add(cursor.next());
         }
         
         return Token.Operation(accumulator.toString());

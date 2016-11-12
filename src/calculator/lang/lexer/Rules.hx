@@ -1,4 +1,4 @@
-package calculator.lexer;
+package calculator.lang.lexer;
 
 /**
  * Parsing the source is done according to the rules defined in this
@@ -44,15 +44,5 @@ class Rules {
      */
     static function isOperationSymbol(char : String) : Bool {
         return ~/\+|\-|\*|\//.match(char);
-    }
-
-    /**
-     * Checks if the character marks "end of field".
-     *
-     * @param char - Character
-     * @return `true` if "end of field"
-     */
-    static function isEof(char : String) : Bool {
-        return char == "";
     }
 }

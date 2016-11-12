@@ -1,9 +1,10 @@
-package calculator.lexer;
+package calculator.lang.lexer;
 
-import calculator.lexer.Reader.*;
-import calculator.lexer.Rules.*;
-import calculator.AST.Token;
-import calculator.Exception.LexerException;
+import calculator.lang.lexer.Reader.*;
+import calculator.lang.lexer.Rules.*;
+import calculator.lang.util.Cursor;
+import calculator.lang.AST.Token;
+import calculator.lang.Exception.LexerException;
 
 /**
  * The lexer performs a lexical analysis of the source string and
@@ -18,10 +19,10 @@ class Lexer {
      * @return Array of tokens
      */
     static function run(source : String) : Array<Token> {
-        var cursor = new Cursor(source);
+        var cursor = new Cursor<String>(source.split(""));
         var tokens = new Array<Token>();
 
-        while (!isEof(cursor.peek())) {
+        while (cursor.hasNext()) {
             switch (cursor.peek()) {
                 case char if (isDigit(char)):
                     tokens.push(readOperand(cursor));
