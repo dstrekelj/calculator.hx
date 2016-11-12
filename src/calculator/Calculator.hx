@@ -1,8 +1,10 @@
 package calculator;
 
 import calculator.lang.lexer.Lexer;
+import calculator.lang.parser.Parser;
 import calculator.lang.util.Log;
 import calculator.lang.Exception.LexerException;
+import calculator.lang.Exception.ParserException;
 
 /**
  * Application entry point.
@@ -19,10 +21,14 @@ import calculator.lang.Exception.LexerException;
 class Calculator {
     static function main() : Void {
         try {
-            var lexer = Lexer.run("1 + 2.5 - 345 * 8");
+            var lexer = Lexer.run("1+2+3-4");
             trace(lexer);
-        } catch (e : LexerException) {
-            Log.lexerException(e);
+            var parser = Parser.run(lexer);
+            trace(parser);
+        } catch (le : LexerException) {
+            Log.lexerException(le);
+        } catch (pe : ParserException) {
+            Log.parserException(pe);
         }
     }
 }
