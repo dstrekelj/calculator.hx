@@ -23,7 +23,7 @@ import calculator.lang.Exception.ParserException;
 class Calculator {
     static function main() : Void {
         try {
-            var tokens = Lexer.run("1+2-3");
+            var tokens = Lexer.run("1+2-");
             trace(tokens);
             var expression = Parser.run(tokens);
             trace(expression);

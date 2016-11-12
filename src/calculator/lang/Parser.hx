@@ -72,6 +72,9 @@ class Parser {
 
         var left = stack.pop();
         cursor.next();
+        
+        if (!cursor.hasNext())
+            throw ParserException.Expected('expression');
 
         switch (op) {
             case '+': return parseOpAdd(left);
