@@ -10,6 +10,10 @@ enum Token {
     Operation(o : String);
 }
 
+/**
+ * Expressions form the AST created by the parser, and interpreted by
+ * the interpreter.
+ */
 enum Expression {
     Number(n : Float);
     OpAdd(a : Expression, b : Expression);

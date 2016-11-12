@@ -1,5 +1,6 @@
 package calculator.lang.util;
 
+import calculator.lang.Exception.InterpreterException;
 import calculator.lang.Exception.LexerException;
 import calculator.lang.Exception.ParserException;
 
@@ -34,6 +35,13 @@ class Log {
                 trace('ParserException: Illegal operation $o');
             case ParserException.IllegalToken(t):
                 trace('ParserException: Illegal token $t');
+        }
+    }
+
+    static function interpreterException(e : InterpreterException) : Void {
+        switch (e) {
+            case InterpreterException.IllegalExpression:
+                trace('InterpreterException: Illegal expression');
         }
     }
 }

@@ -1,4 +1,4 @@
-package calculator.lang.lexer;
+package calculator.lang;
 
 import calculator.lang.lexer.Reader.*;
 import calculator.lang.lexer.Rules.*;

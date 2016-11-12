@@ -1,8 +1,10 @@
 package calculator;
 
-import calculator.lang.lexer.Lexer;
-import calculator.lang.parser.Parser;
+import calculator.lang.Interpreter;
+import calculator.lang.Lexer;
+import calculator.lang.Parser;
 import calculator.lang.util.Log;
+import calculator.lang.Exception.InterpreterException;
 import calculator.lang.Exception.LexerException;
 import calculator.lang.Exception.ParserException;
 
@@ -21,14 +23,18 @@ import calculator.lang.Exception.ParserException;
 class Calculator {
     static function main() : Void {
         try {
-            var lexer = Lexer.run("1+2+3-4");
-            trace(lexer);
-            var parser = Parser.run(lexer);
-            trace(parser);
+            var tokens = Lexer.run("1+2-3");
+            trace(tokens);
+            var expression = Parser.run(tokens);
+            trace(expression);
+            var result = Interpreter.run(expression);
+            trace(result);
         } catch (le : LexerException) {
             Log.lexerException(le);
         } catch (pe : ParserException) {
             Log.parserException(pe);
+        } catch (ie : InterpreterException) {
+            Log.interpreterException(ie);
         }
     }
 }
