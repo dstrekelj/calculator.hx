@@ -1,5 +1,6 @@
 package calculator.lang;
 
+import calculator.lang.parser.Rules.*;
 import calculator.lang.util.Cursor;
 import calculator.lang.AST.Token;
 import calculator.lang.AST.Expression;
@@ -76,11 +77,10 @@ class Parser {
         if (!cursor.hasNext())
             throw ParserException.Expected('expression');
 
-        switch (op) {
-            case '+': return parseOpAdd(left);
-            case '-': return parseOpSub(left);
-            case _: throw ParserException.IllegalOp(op);
-        }
+        if (isOpAdd(op)) return parseOpAdd(left);
+        if (isOpSub(op)) return parseOpSub(left);
+        
+        throw ParserException.IllegalOp(op);
     }
 
     /**
