@@ -43,6 +43,6 @@ class Rules {
      * @return `true` if operation symbol (+, -, *, /)
      */
     static function isOperationSymbol(char : String) : Bool {
-        return ~/\+|\-|\*|\//.match(char);
+        return ~/\+|\-|\*|\/|[a-z]/.match(char);
     }
 }

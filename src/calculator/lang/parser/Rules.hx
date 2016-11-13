@@ -14,7 +14,7 @@ class Rules {
      * @return `true` if character is addition symbol
      */
     static function isOpAdd(char : String) : Bool {
-        return ~/\+/.match(char);
+        return ~/\+|add/.match(char);
     }
 
     /**
@@ -25,6 +25,6 @@ class Rules {
      * @return `true` if character is subtraction symbol
      */
     static function isOpSub(char : String) : Bool {
-        return ~/\-/.match(char);
+        return ~/\-|sub/.match(char);
     }
 }
